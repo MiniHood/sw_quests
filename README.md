@@ -1,2 +1,2 @@
 # sw_quests
-Quests system for star wars, learning project.
+Garry's Mod quest system for star wars roleplay, learning project.
