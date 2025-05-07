@@ -331,7 +331,7 @@ function ENT:HandleStuck(options)
 		if result == "ok" then break end
 	end
 
-	if result != "ok" then
+	if not result == "ok" then
 		unstuck_attempts = unstuck_attempts + 1
 		if unstuck_attempts >= max_unstuck_attempts then
 			local town = self:GetTown()
@@ -358,7 +358,7 @@ function ENT:HandleStuck(options)
 		local offset = vector_origin
 
 		local result = self:GetAngleNeedsSpace()
-		if result != nil then offset = -result:Forward() * offset_mult end
+		if not result == nil then offset = -result:Forward() * offset_mult end
 
 		self.loco:Approach(path[1] + offset, 1)
 		self.loco:FaceTowards(path[1])
@@ -433,7 +433,7 @@ function ENT:MoveToEntity(target, options)
 		if self.loco:IsStuck() or motionless_ticks * engine.TickInterval() > 0.5 then
 			local result = self:HandleStuck({ unstuck_attempts = unstuck_attempts, timeout = 3 })
 			if result == "teleported" then return result end
-			if result != "ok" then
+			if not result == "ok" then
 				unstuck_attempts = unstuck_attempts + 1
 				if unstuck_attempts >= max_unstuck_attempts then
 					return "failed"
@@ -510,7 +510,7 @@ function ENT:MoveToPos(pos, options)
 		if self.loco:IsStuck() or motionless_ticks * engine.TickInterval() > 0.5 then
 			local result = self:HandleStuck({ unstuck_attempts = unstuck_attempts, timeout = 3 })
 			if result == "teleported" then return result end
-			if result != "ok" then
+			if not result == "ok" then
 				unstuck_attempts = unstuck_attempts + 1
 				if unstuck_attempts >= max_unstuck_attempts then
 					return "failed"

@@ -17,7 +17,7 @@ local function SimpleAutoComplete( cmd, args, ... )
 
 	local lastItem = nil
 	for i, str in pairs( arg ) do
-		if ( str == "" && ( lastItem && lastItem == "" ) ) then table.remove( arg, i ) end
+		if ( str == "" and ( lastItem and lastItem == "" ) ) then table.remove( arg, i ) end
 		lastItem = str
 	end -- Remove empty entries. Can this be done better?
 
@@ -28,7 +28,7 @@ local function SimpleAutoComplete( cmd, args, ... )
 
 	local possibilities = possibleArgs[ numArgs ] or { lastArg }
 	for _, acStr in pairs( possibilities ) do
-		if ( !acStr:StartsWith( lastArg ) ) then continue end
+		if ( not acStr:StartsWith( lastArg ) ) then continue end
 		table.insert( autoCompletes, cmd .. prevArgs .. " " .. acStr )
 	end
 		

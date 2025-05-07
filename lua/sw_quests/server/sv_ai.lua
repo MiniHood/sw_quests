@@ -74,7 +74,7 @@ function NODE_OBJECT:GetConnectedNodes( eval_func )
 	
 	for i, connection in ipairs(self.connections) do
 		for j, node in ipairs(connection.nodes) do
-			if node != self then
+			if not node == self then
 				local eval = true
 				if eval_func then
 					eval = eval_func(node)
@@ -108,7 +108,7 @@ function NODE_OBJECT:DrawDebug(duration)
 	debugoverlay.Cross(self.pos, s, duration, c)
 	-- debugoverlay.Text(self.pos, tostring(math.floor(self.score)), duration)
 	
-	if self.parent != nil then
+	if not self.parent == nil then
 		debugoverlay.Line(self.pos+Vector(0,0,10), self.parent.pos+Vector(0,0,15), duration, COLOR_MAGENTA, true)
 	end
 end
@@ -406,7 +406,7 @@ end
 
 function OBST_AVOID_PATH_GEN:GenerateConnections( node )
 	for i, other_node in ipairs(self.nodes) do
-		if other_node != node then
+		if not other_node == node then
 			local dist = node.pos:Distance(other_node.pos)
 			if dist >= self.node_min_dist and dist <= self.node_max_dist then
 				local existing_connection = self:FindConnection(node, other_node)
@@ -455,7 +455,7 @@ function OBST_AVOID_PATH_GEN:CalcPath()
 		local pick_score = nil
 		
 		for i, node in ipairs( self.open_nodes ) do
-			if node.parent != nil and (pick_score == nil or node.score < pick_score) then
+			if not node.parent == nil and (pick_score == nil or node.score < pick_score) then
 				pick_index = i
 				pick_score = node.score
 			end
@@ -489,7 +489,7 @@ function OBST_AVOID_PATH_GEN:CalcPath()
 	
 	local new_path = {}
 	local current_node = self.end_node
-	while current_node != nil do
+	while not current_node == nil do
 		table.insert(new_path, current_node.pos)
 		current_node = current_node.parent
 	end
